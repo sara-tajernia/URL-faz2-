@@ -30,24 +30,25 @@ public class Url {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void Request(String str) throws IOException, ClassNotFoundException {;
-
+    public void Request(String str) throws IOException, ClassNotFoundException {
         if (str == "EXIT"){
             return;
         }
         String[] arrOfStr = str.split(" ");
 
-        for (String i: arrOfStr){
-            System.out.println(i);
-        }
+//        for (String i: arrOfStr){
+//            System.out.println(i);
+//        }
 
-        System.out.println("number:     " +arrOfStr.length);
+//        System.out.println("number:     " +arrOfStr.length);
         if (arrOfStr.length == 1) {
             System.out.println("You cant have this input!!!!");
-            System.out.println("*****************" +arrOfStr[0]);
+//            System.out.println("*****************" +arrOfStr[0]);
             return;
 //                continue;
         }
+
+//        System.out.println("2222222");
 
         if (arrOfStr[1].equals("list")) {
             List();
@@ -95,6 +96,7 @@ public class Url {
             list = false;
 //                continue;
         } else {
+//            System.out.println("saraaaa");
             Save save = new Save();
             URL url = null;
             String Body[] = null;

@@ -61,6 +61,7 @@ public class Request implements Serializable{
 
     public void createRequest(boolean saveRespond, String nameOutput, boolean headerRespond, boolean followRedirect) throws IOException {
 
+        System.out.println(followRedirect);
         HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
         urlCon.setRequestMethod(method);
         urlCon.setInstanceFollowRedirects(true);
@@ -71,15 +72,29 @@ public class Request implements Serializable{
 
         if (header != null) {
             for (String s : header) {
-                String nameValue[] = s.split(":");
-                urlCon.setRequestProperty(nameValue[0], nameValue[1]);
+//                System.out.println("header2: " +s);
+                if (s!=null) {
+                    if (s.contains(":")) {
+                        String nameValue[] = s.split(":");
+//                        System.out.println("header" +nameValue[0]);
+                        urlCon.setRequestProperty(nameValue[0], nameValue[1]);
+                    }
+                }
             }
         }
+
+
         HashMap<String, String> Body = new HashMap<>();
         if (body != null) {
             for (String s : body) {
-                String test[] = s.split("=");
-                Body.put(test[0], test[1]);
+//                System.out.println("formdata2:  " +s);
+                if (s!=null) {
+                    if (s.contains("=")) {
+                        String test[] = s.split("=");
+//                        System.out.println("dataform "+test[0]);
+                        Body.put(test[0], test[1]);
+                    }
+                }
             }
         }
 
@@ -91,11 +106,13 @@ public class Request implements Serializable{
 
         if (!method.equals("GET")) {
             BufferedOutputStream bos = new BufferedOutputStream(urlCon.getOutputStream());
-            bufferOutFormData(Body, System.currentTimeMillis()+"", bos);
+//            System.out.println("bodyyyyyy " +Body.size());
+            bufferOutFormData(Body, boundary, bos);
         }
         String output = new String();
         try {
             BufferedInputStream bis = new BufferedInputStream(urlCon.getInputStream());
+//            System.out.println(bis.readAllBytes().toString());
             output = new String(bis.readAllBytes());
             System.out.println(output);
         }
@@ -120,20 +137,28 @@ public class Request implements Serializable{
             save.SaveRespond(output, nameOutput);
         }
 
-        if (headerRespond){
-            System.out.println("header: ");
-            Map<String, List<String>> map = urlCon.getHeaderFields();
-            for (String key : map.keySet()) {
-                System.out.println(key + "     " + map.get(key));
-            }
 
-        }
 
         System.out.println("***********************");
         System.out.println("Code: " +urlCon.getResponseCode() +" " +urlCon.getResponseMessage());
         System.out.println("Method: " +urlCon.getRequestMethod());
         System.out.println("direct: " +urlCon.getInstanceFollowRedirects());
         System.out.println("***********************");
+
+
+        Map<String, List<String>> map = urlCon.getHeaderFields();
+        String[] HeaderRespond = new String[map.keySet().size()];
+        if (headerRespond){
+            System.out.println("header:");
+            int counter = 0;
+            for (String key : map.keySet()) {
+                HeaderRespond[counter++] = key +"---->" +map.get(key);
+            }
+            for (String s :HeaderRespond)
+                System.out.println(s);
+        }
+//        System.out.println("***********************");
+
     }
 
 

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 /**
  *  URL
@@ -16,11 +17,15 @@ public class Main {
         for (String s: args){
             str += s +" ";
         }
+//        Scanner scanner = new Scanner(System.in);
+//        String str = scanner.nextLine();
 
-        System.out.println("CODE: " +str);
+//        System.out.println("CODE: " +str);
 
+//        Url url1 = new Url();
         try{
             Url url = new Url();
+//            System.out.println("hiii dar");
             url.Request(str);
         }
         catch (IOException e){
