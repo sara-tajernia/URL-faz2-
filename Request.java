@@ -72,11 +72,9 @@ public class Request implements Serializable{
 
         if (header != null) {
             for (String s : header) {
-//                System.out.println("header2: " +s);
                 if (s!=null) {
                     if (s.contains(":")) {
                         String nameValue[] = s.split(":");
-//                        System.out.println("header" +nameValue[0]);
                         urlCon.setRequestProperty(nameValue[0], nameValue[1]);
                     }
                 }
@@ -87,11 +85,9 @@ public class Request implements Serializable{
         HashMap<String, String> Body = new HashMap<>();
         if (body != null) {
             for (String s : body) {
-//                System.out.println("formdata2:  " +s);
                 if (s!=null) {
                     if (s.contains("=")) {
                         String test[] = s.split("=");
-//                        System.out.println("dataform "+test[0]);
                         Body.put(test[0], test[1]);
                     }
                 }
@@ -106,20 +102,16 @@ public class Request implements Serializable{
 
         if (!method.equals("GET")) {
             BufferedOutputStream bos = new BufferedOutputStream(urlCon.getOutputStream());
-//            System.out.println("bodyyyyyy " +Body.size());
             bufferOutFormData(Body, boundary, bos);
         }
         String output = new String();
         try {
             BufferedInputStream bis = new BufferedInputStream(urlCon.getInputStream());
-//            System.out.println(bis.readAllBytes().toString());
             output = new String(bis.readAllBytes());
             System.out.println(output);
         }
         catch (IOException e){
-//            e.printStackTrace();
             System.out.println("NO body returned a respond");
-//            System.out.println(urlCon.getRequestMethod());
         }
         if (saveRespond){
             String contentType = urlCon.getContentType().toString();
@@ -136,7 +128,6 @@ public class Request implements Serializable{
             Save save = new Save();
             save.SaveRespond(output, nameOutput);
         }
-
 
 
         System.out.println("***********************");
@@ -157,8 +148,6 @@ public class Request implements Serializable{
             for (String s :HeaderRespond)
                 System.out.println(s);
         }
-//        System.out.println("***********************");
-
     }
 
 
@@ -172,10 +161,5 @@ public class Request implements Serializable{
         bufferedOutputStream.flush();
         bufferedOutputStream.close();
     }
-
-
-
-
-
 
 }

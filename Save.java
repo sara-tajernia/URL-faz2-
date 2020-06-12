@@ -53,27 +53,4 @@ public class Save {
     }
 
 
-//    public static void loadRespond(){
-//
-//        File folder = new File("/Users/sara/IdeaProjects/Faz2");
-//        folder.exists();
-//        File[] listOfFiles = folder.listFiles();
-//
-//        for (File file : listOfFiles) {
-//            if (file.isFile()) {
-//                try {
-//                    ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-//                    Request request = (Request) in.readObject();
-//                    in.close();
-//
-//                } catch (IOException | ClassNotFoundException e){
-//                    e.printStackTrace();
-//                }
-////                System.out.println(file.getName());
-//            }
-//        }
-//    }
-
-
-
 }
